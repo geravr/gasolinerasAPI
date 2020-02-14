@@ -58,4 +58,24 @@ class UI {
     });
     this.markers.addTo(this.map);
   }
+
+  // Searcher
+  getSuggestions(search) {
+    this.api.getData()
+    .then(data => {
+        //get data
+        const response = data.responseJSON.results;
+
+        // Send JSON to the search filter
+        this.filterSuggetions(response, search);
+    })
+  }
+  // filter suggetions based on input
+  filterSuggetions(response, search) {
+    // filter with .filter
+    const filter = response.filter(filter => filter.calle.indexOf(search) !== -1);
+
+    // show filter pins
+    this.showPins(filter);
+  }
 }
