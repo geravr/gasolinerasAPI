@@ -37,13 +37,22 @@ class UI {
         const {latitude, longitude, calle, regular, premium} = data
         let floatLatitude = parseFloat(latitude);
         let floatLongitude = parseFloat(longitude);
-
+        
+        // Limit pin only for Guadalajara, Jalisco
         if (floatLatitude >= 20.512000 && floatLatitude <= 20.815000 && floatLongitude <= -103.166000 && floatLongitude >= -103.480000 ) {
+
+        // add popup for data prices
+        const popUpOptions = L.popup()
+            .setContent(`
+            <p>Calle: ${calle}</p>
+            <p><strong>Regular:</strong> $ ${regular}</p>
+            <p><strong>Premium:</strong> $ ${premium}</p>
+            `)
                  // add PIN
         const marker =  new L.marker([
             parseFloat(latitude),
             parseFloat(longitude)
-        ]);
+        ]).bindPopup(popUpOptions);
         this.markers.addLayer(marker);
         }
     });
